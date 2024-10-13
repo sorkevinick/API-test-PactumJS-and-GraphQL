@@ -1,0 +1,33 @@
+name: API Test with PactumJS and GraphQL
+
+on:
+  push:
+    branches: [ CI ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - uses: actions/checkout@v2
+
+    # Setup Node.js environment
+    - uses: actions/setup-node@v2
+      with:
+        node-version: '14'
+
+    # Install dependencies
+    - run: npm install
+
+    # Run Mocha tests
+    - name: Run API Tests
+      run: npm test
+
+    # Publish Mocha Report
+    - name: Publish Report
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./mochawesome-report
