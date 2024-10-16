@@ -21,6 +21,8 @@ jobs:
     # Install dependencies
     - run: npm install
 
+    - run: npm start
+
     # Run Mocha tests
     - name: Run API Tests
       run: npm test
